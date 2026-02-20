@@ -3,7 +3,7 @@ import type { Locale, TranslationMap } from "./types.ts";
 
 type Subscriber = (locale: Locale) => void;
 
-export const SUPPORTED_LOCALES: ReadonlyArray<Locale> = ["en", "zh-CN", "zh-TW", "pt-BR", "ja"];
+export const SUPPORTED_LOCALES: ReadonlyArray<Locale> = ["en", "zh-CN", "ja"];
 
 export function isSupportedLocale(value: string | null | undefined): value is Locale {
   return value !== null && value !== undefined && SUPPORTED_LOCALES.includes(value as Locale);
@@ -16,6 +16,8 @@ class I18nManager {
 
   constructor() {
     this.loadLocale();
+    // Load saved non-en locale so t() returns translations after refresh
+    void this.ensureLocaleLoaded(this.locale);
   }
 
   private loadLocale() {
@@ -25,14 +27,30 @@ class I18nManager {
     } else {
       const navLang = navigator.language;
       if (navLang.startsWith("zh")) {
-        this.locale = navLang === "zh-TW" || navLang === "zh-HK" ? "zh-TW" : "zh-CN";
-      } else if (navLang.startsWith("pt")) {
-        this.locale = "pt-BR";
+        this.locale = "zh-CN";
       } else if (navLang.startsWith("ja")) {
         this.locale = "ja";
       } else {
         this.locale = "en";
       }
+    }
+  }
+
+  private async ensureLocaleLoaded(locale: Locale) {
+    if (locale === "en" || this.translations[locale]) return;
+    try {
+      let module: Record<string, TranslationMap>;
+      if (locale === "zh-CN") {
+        module = await import("../locales/zh-CN.ts");
+      } else if (locale === "ja") {
+        module = await import("../locales/ja.ts");
+      } else {
+        return;
+      }
+      this.translations[locale] = module[locale.replace("-", "_") ?? locale];
+      this.notify();
+    } catch (e) {
+      console.error(`Failed to load locale: ${locale}`, e);
     }
   }
 
@@ -51,10 +69,6 @@ class I18nManager {
         let module: Record<string, TranslationMap>;
         if (locale === "zh-CN") {
           module = await import("../locales/zh-CN.ts");
-        } else if (locale === "zh-TW") {
-          module = await import("../locales/zh-TW.ts");
-        } else if (locale === "pt-BR") {
-          module = await import("../locales/pt-BR.ts");
         } else if (locale === "ja") {
           module = await import("../locales/ja.ts");
         } else {
