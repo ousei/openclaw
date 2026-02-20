@@ -96,6 +96,8 @@ export function renderApp(state: AppViewState) {
   const isChat = state.tab === "chat";
   const chatFocus = isChat && (state.settings.chatFocusMode || state.onboarding);
   const showThinking = state.onboarding ? false : state.settings.chatShowThinking;
+  const isGenerating = state.chatSending || state.chatStream != null;
+  const effectiveShowThinking = showThinking || isGenerating;
   const assistantAvatarUrl = resolveAssistantAvatarUrl(state);
   const chatAvatarUrl = state.chatAvatarUrl ?? assistantAvatarUrl ?? null;
   const configValue =
@@ -820,7 +822,7 @@ export function renderApp(state: AppViewState) {
                   void refreshChatAvatar(state);
                 },
                 thinkingLevel: state.chatThinkingLevel,
-                showThinking,
+                showThinking: effectiveShowThinking,
                 loading: state.chatLoading,
                 sending: state.chatSending,
                 compactionStatus: state.compactionStatus,
