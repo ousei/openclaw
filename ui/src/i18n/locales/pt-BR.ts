@@ -112,6 +112,7 @@ export const pt_BR: TranslationMap = {
   languages: {
     en: "English",
     zhCN: "简体中文 (Chinês Simplificado)",
+    ja: "日本語",
     zhTW: "繁體中文 (Chinês Tradicional)",
     ptBR: "Português (Português Brasileiro)",
   },
