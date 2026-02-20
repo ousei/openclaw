@@ -1,0 +1,47 @@
+=== Notion Tasks (Status: Not Started) ===
+
+Total: 4 tasks
+Generated: 2026-02-03 13:18:04
+
+---
+
+Task #1
+Title: 保証範囲について協議の場を設定
+Status: 未着手
+Created: 2026-01-15T02:07:00.000Z
+Last Edited: 2026-01-19T15:25:00.000Z
+ID: 05424e1f-0c34-47bb-b89b-c5fa67add25a
+URL: https://www.notion.so/05424e1f0c3447bbb89bc5fa67add25a
+
+---
+
+Task #2
+Title: ロギングソフト導入による現地充電環境・温度データ取得
+Status: 未着手
+Created: 2026-01-15T02:07:00.000Z
+Last Edited: 2026-01-19T15:25:00.000Z
+ID: 638b3068-bd72-4152-bf3b-02fa214250bf
+URL: https://www.notion.so/638b3068bd724152bf3b02fa214250bf
+
+---
+
+Task #3
+Title: 現地でバックライト制御機能のデモンストレーション実施
+Status: 未着手
+Created: 2026-01-15T02:07:00.000Z
+Last Edited: 2026-01-19T15:25:00.000Z
+ID: ef30ed3b-d680-48d5-ac90-bbc2bc5d422e
+URL: https://www.notion.so/ef30ed3bd68048d5ac90bbc2bc5d422e
+
+---
+
+Task #4
+Title: 代替機2台を返却
+Status: 未着手
+Created: 2026-01-15T02:07:00.000Z
+Last Edited: 2026-01-19T15:24:00.000Z
+ID: f0c38fde-ff02-40af-b165-7d632e3be177
+URL: https://www.notion.so/2-f0c38fdeff0240afb1657d632e3be177
+
+---
+

@@ -1,0 +1,87 @@
+# PowerShell: 禁止使用 && 运算符
+
+## 🚨 强制规则
+
+**在执行任何 PowerShell 命令时，绝对禁止使用 `&&` 运算符！**
+
+## 问题
+
+PowerShell **不支持** `&&` 运算符。使用 `&&` 会导致解析错误：
+
+```
+トークン '&&' は、このバージョンでは有効なステートメント区切りではありません。
+Token '&&' is not a valid statement separator in this version.
+```
+
+## 正确的替代方案
+
+### ✅ 使用分号 `;`
+
+```powershell
+# ✅ 正确
+cd C:\path; .\script.ps1
+
+# ❌ 错误
+cd C:\path && .\script.ps1
+```
+
+### ✅ 使用换行
+
+```powershell
+# ✅ 正确
+cd C:\path
+.\script.ps1
+```
+
+### ✅ 使用条件判断
+
+```powershell
+# ✅ 正确
+if (Test-Path "script.ps1") {
+    cd C:\path
+    .\script.ps1
+}
+```
+
+## 常见场景
+
+### Weather Skill 调用
+
+**✅ 正确：**
+```powershell
+cd C:\Users\wengzheng\.openclaw\workspace\skills\weather; .\search_weather.ps1 "Tokyo"
+```
+
+**❌ 错误：**
+```powershell
+cd C:\Users\wengzheng\.openclaw\workspace\skills\weather && .\search_weather.ps1 "Tokyo"
+```
+
+### 多个命令连续执行
+
+**✅ 正确：**
+```powershell
+$env:VAR = "value"; cd C:\path; .\script.ps1
+```
+
+**❌ 错误：**
+```powershell
+$env:VAR = "value" && cd C:\path && .\script.ps1
+```
+
+## 检查清单
+
+在执行 PowerShell 命令前，检查：
+1. ❌ 是否包含 `&&`？如果是，必须替换为 `;` 或换行
+2. ✅ 使用 `;` 分隔多个命令
+3. ✅ 或使用换行分隔命令
+4. ✅ 或使用条件判断（if/try-catch）
+
+## 相关文档
+
+- `workspace/POWERSHELL-RULES.md` - 完整的 PowerShell 语法规则
+- `workspace/WEATHER-SKILL-USAGE.md` - Weather skill 使用指南
+
+## 记住
+
+**PowerShell = 使用 `;` 或换行，永远不要使用 `&&`！**

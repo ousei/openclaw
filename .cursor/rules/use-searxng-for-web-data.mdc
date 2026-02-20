@@ -1,0 +1,145 @@
+# 使用 SearXNG 获取网页数据
+
+## 重要规则
+
+**所有需要网页数据的场景都必须使用 SearXNG，而不是 `web_fetch` 工具。**
+
+## 为什么？
+
+1. **`web_fetch` 的限制**:
+   - 直接访问特定 URL 可能失败（DNS 解析错误、404、403 等）
+   - 某些网站有访问限制
+   - 需要知道确切的 URL
+
+2. **SearXNG 的优势**:
+   - ✅ 通过搜索获取多个来源的结果
+   - ✅ 绕过网站访问限制
+   - ✅ 不需要知道确切 URL
+   - ✅ 本地部署，无速率限制
+   - ✅ 返回 JSON 格式数据，不创建临时文件
+
+## 使用方法
+
+### 方法 1: 使用 local-search 脚本
+
+```powershell
+# 在 PowerShell 脚本中调用
+$results = & "C:\Users\wengzheng\.openclaw\workspace\skills\local-search\scripts\search.ps1" "your search query" | ConvertFrom-Json
+
+# 处理结果
+foreach ($result in $results) {
+    Write-Host "Title: $($result.Title)"
+    Write-Host "URL: $($result.URL)"
+    Write-Host "Snippet: $($result.Snippet)"
+}
+```
+
+### 方法 2: 使用通用搜索函数
+
+```powershell
+# 在其他脚本中引用
+. C:\Users\wengzheng\.openclaw\workspace\skills\utilities\searxng-search.ps1
+$results = Search-SearXNG "your search query"
+```
+
+### 方法 3: 使用特定技能的搜索脚本
+
+```powershell
+# 天气搜索示例
+cd C:\Users\wengzheng\.openclaw\workspace\skills\weather
+.\search_weather.ps1 "Tokyo"
+```
+
+## 输出格式
+
+所有 SearXNG 搜索脚本返回统一的 JSON 格式：
+
+```json
+[
+    {
+        "Title": "搜索结果标题",
+        "URL": "https://example.com",
+        "Snippet": "结果摘要..."
+    }
+]
+```
+
+## 禁止的操作
+
+❌ **不要使用 `web_fetch` 工具**:
+- ❌ 不要直接访问 `weather.tsukuba.ac.jp` 等特定 URL
+- ❌ 不要使用 `web_fetch` 获取天气数据
+- ❌ 不要使用 `web_fetch` 获取任何需要搜索才能找到的网页数据
+
+✅ **应该使用 SearXNG**:
+- ✅ 使用 SearXNG 搜索 "Tokyo weather"
+- ✅ 使用 SearXNG 搜索任何需要的信息
+- ✅ 从搜索结果中选择最相关的 URL
+
+## 示例场景
+
+### 场景 1: 获取天气信息
+
+**错误方式**:
+```
+使用 web_fetch 访问 https://weather.tsukuba.ac.jp/forecast/index.php?area=tokyo
+```
+
+**正确方式**:
+```powershell
+# 使用 weather 技能
+cd C:\Users\wengzheng\.openclaw\workspace\skills\weather
+.\search_weather.ps1 "Tokyo"
+
+# 或使用 local-search
+cd C:\Users\wengzheng\.openclaw\workspace\skills\local-search\scripts
+.\search.ps1 "Tokyo weather"
+```
+
+### 场景 2: 获取技术文档
+
+**错误方式**:
+```
+使用 web_fetch 访问特定文档 URL
+```
+
+**正确方式**:
+```powershell
+cd C:\Users\wengzheng\.openclaw\workspace\skills\local-search\scripts
+.\search.ps1 "Python documentation"
+```
+
+### 场景 3: 搜索新闻或信息
+
+**错误方式**:
+```
+使用 web_fetch 访问特定新闻网站
+```
+
+**正确方式**:
+```powershell
+cd C:\Users\wengzheng\.openclaw\workspace\skills\local-search\scripts
+.\search.ps1 "latest AI news"
+```
+
+## SearXNG 实例信息
+
+- **URL**: `http://localhost:18888`
+- **状态**: 已部署并运行
+- **访问方式**: HTML 页面提取（绕过 bot detection）
+
+## 相关文档
+
+- `workspace/SEARXNG-USAGE-GUIDE.md` - 详细使用指南
+- `workspace/SEARXNG-INTEGRATION-SUMMARY.md` - 集成总结
+- `workspace/skills/local-search/SKILL.md` - Local Search 技能文档
+
+## 重要提醒
+
+当用户请求获取网页数据时：
+
+1. **首先考虑**: 是否可以通过 SearXNG 搜索获取？
+2. **如果是**: 使用 SearXNG 搜索脚本，不要使用 `web_fetch`
+3. **如果必须使用 `web_fetch`**: 确保 URL 是已知的、可访问的，并且用户明确要求直接访问该 URL
+
+**默认行为**: 优先使用 SearXNG 搜索，而不是直接 `web_fetch`。

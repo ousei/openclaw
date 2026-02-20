@@ -1,0 +1,45 @@
+---
+description: Web search language code mapping (deprecated - Brave Search API disabled, now using local SearXNG)
+alwaysApply: true
+---
+
+# Web Search Language Codes
+
+**注意：** Brave Search API 已禁用，现在使用本地 SearXNG。此文档保留作为参考。
+
+如果将来需要使用其他搜索 API，以下是语言代码映射规则。
+
+## 日语（Japanese）映射
+
+**错误示例：**
+```json
+{
+  "query": "日本 ニュース",
+  "search_lang": "ja",  // ❌ 错误
+  "ui_lang": "ja"      // ❌ 错误
+}
+```
+
+**正确示例：**
+```json
+{
+  "query": "日本 ニュース",
+  "search_lang": "jp",      // ✅ 正确
+  "ui_lang": "ja-JP"        // ✅ 正确
+}
+```
+
+## 规则
+
+当需要日语搜索时：
+- 使用 `search_lang: "jp"`（不是 `"ja"`）
+- 使用 `ui_lang: "ja-JP"`（不是 `"ja"`）
+
+## 其他语言代码
+
+Brave Search API 支持的语言代码请参考：
+- `search_lang`: 'ar', 'eu', 'bn', 'bg', 'ca', 'zh-hans', 'zh-hant', 'hr', 'cs', 'da', 'nl', 'en', 'en-gb', 'et', 'fi', 'fr', 'gl', 'de', 'el', 'gu', 'he', 'hi', 'hu', 'is', 'it', 'jp', 'kn', 'ko', 'lv', 'lt', 'ms', 'ml', 'mr', 'nb', 'pl', 'pt-br', 'pt-pt', 'pa', 'ro', 'ru', 'sr', 'sk', 'sl', 'es', 'sv', 'ta', 'te', 'th', 'tr', 'uk', 'vi'
+
+- `ui_lang`: 'es-AR', 'en-AU', 'de-AT', 'nl-BE', 'fr-BE', 'pt-BR', 'en-CA', 'fr-CA', 'es-CL', 'da-DK', 'fi-FI', 'fr-FR', 'de-DE', 'el-GR', 'zh-HK', 'en-IN', 'en-ID', 'it-IT', 'ja-JP', 'ko-KR', 'en-MY', 'es-MX', 'nl-NL', 'en-NZ', 'no-NO', 'zh-CN', 'pl-PL', 'en-PH', 'ru-RU', 'en-ZA', 'es-ES', 'sv-SE', 'fr-CH', 'de-CH', 'zh-TW', 'tr-TR', 'en-GB', 'en-US', 'es-US'
+
+**重要：** 始终验证语言代码是否在 API 支持的列表中，避免使用 ISO 639-1 代码（如 "ja"）而应使用 API 特定的代码（如 "jp" 和 "ja-JP"）。

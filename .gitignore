@@ -1,0 +1,27 @@
+# 敏感凭据（含 API Key、Token）
+.env
+credentials/
+openclaw.json
+
+# 运行时 / 生成数据
+agents/
+browser/
+memory/
+media/
+devices/
+cron/
+control-ui/
+canvas/
+
+# 设备配对凭据（含 token）
+identity/
+
+# 临时与备份
+*.bak*
+*.log
+exec-approvals.json
+update-check.json
+
+# 系统
+.DS_Store
+Thumbs.db

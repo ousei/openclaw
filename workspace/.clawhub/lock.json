@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "skills": {
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1769795808410
+    },
+    "todoist": {
+      "version": "0.2.1",
+      "installedAt": 1769795833888
+    },
+    "focus-deep-work": {
+      "version": "1.0.0",
+      "installedAt": 1769795850779
+    },
+    "git-essentials": {
+      "version": "1.0.0",
+      "installedAt": 1769795867994
+    },
+    "code-explainer": {
+      "version": "1.0.0",
+      "installedAt": 1769795885412
+    },
+    "ai-diff-summary": {
+      "version": "1.0.1",
+      "installedAt": 1769795903927
+    },
+    "gmail-manager": {
+      "version": "1.0.0",
+      "installedAt": 1769796166243
+    },
+    "youtube-summarizer": {
+      "version": "1.0.0",
+      "installedAt": 1769796190112
+    },
+    "email": {
+      "version": "1.1.0",
+      "installedAt": 1769796215830
+    },
+    "device-assistant": {
+      "version": "1.0.0",
+      "installedAt": 1769796239584
+    },
+    "sonoscli": {
+      "version": "1.0.0",
+      "installedAt": 1770305785094
+    },
+    "tavily-search": {
+      "version": "1.0.0",
+      "installedAt": 1770305936908
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1770305952629
+    },
+    "proactive-agent-1-2-4": {
+      "version": "1.0.0",
+      "installedAt": 1770306002865
+    }
+  }
+}
